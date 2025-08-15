@@ -5,6 +5,7 @@ import (
 	"Template-Go/models"
 	"Template-Go/models/request"
 	"Template-Go/models/response"
+	"Template-Go/services"
 	"math/rand"
 	"net/http"
 	"strings"
@@ -12,6 +13,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+var emailService = services.EmailServiceGomail()
 
 func Register(c *gin.Context) {
 	var req request.RegisterRequest
@@ -48,15 +51,21 @@ func Register(c *gin.Context) {
 		OtpReminder: &fiveMinutesLater,
 	}
 
-	if err := config.DB.Create(&user).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Failed to create user",
-		})
-		return
-	}
+	config.DB.Create(&user)
+
+	// err := emailService.SendOTP(req.Email, randomNumber, "verify")
+	// if err != nil {
+	// 	fmt.Printf("❌ Gagal kirim email: %s\n", err.Error())
+	// } else {
+	// 	fmt.Printf("✅ Email sent to %s\n", req.Email)
+	// }
 
 	c.JSON(http.StatusCreated, response.RegisterResponse{
 		Message: "User registered successfully",
 		User:    user,
 	})
+}
+
+func Login(c *gin.Context) {
+
 }
