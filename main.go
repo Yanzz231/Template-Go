@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"Template-Go/config"
+	"Template-Go/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -38,6 +39,9 @@ func main() {
 			"status":  "running",
 		})
 	})
+
+	api := r.Group("/api")
+	routes.UserRoutes(api)
 
 	port := os.Getenv("PORT")
 	fmt.Printf("Server starting on port %s", port)

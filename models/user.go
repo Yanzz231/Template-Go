@@ -15,9 +15,9 @@ type User struct {
 	Password            string     `json:"-" gorm:"not null"`
 	Phone               string     `json:"phone" gorm:"not null"`
 	Token               *string    `json:"token,omitempty" gorm:"default:null"`
-	OtpVerify           *string    `json:"otp_verify,omitempty" gorm:"default:null"`
+	OtpVerify           int        `json:"otp_verify,omitempty" gorm:"default:null"`
 	OtpReminder         *time.Time `json:"otp_reminder,omitempty" gorm:"default:null"`
-	OtpPassword         *string    `json:"otp_password,omitempty" gorm:"default:null"`
+	OtpPassword         int        `json:"otp_password,omitempty" gorm:"default:null"`
 	OtpPasswordReminder *time.Time `json:"otp_password_reminder,omitempty" gorm:"default:null"`
 	CreatedAt           time.Time  `json:"created_at"`
 	UpdatedAt           time.Time  `json:"updated_at"`
